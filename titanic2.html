@@ -1,13 +1,46 @@
 <html>
   <head>
     <title>Getting Started Data Viz</title>
+    <style>
+      body {
+        /* margin: 80px; */
+      }
+      p {
+        font-size: 10px;
+        margin-top: 5px;
+      }
+
+      h4 {
+        margin-bottom: 5px;
+      }
+
+      .gender-male {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: blue;
+        transform: rotate(45deg);
+
+      }
+
+      .gender-female {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: pink;
+        transform: rotate(45deg);
+
+      }
+    </style>
   </head>
   <body>
-    <h3>Sex</h3>
+    <h4>Sex</h4>
+    <p>Legend: <br> Male - <span class="gender-male"></span> <br> Female - <span class="gender-female"></span></p>
+
     <div id="sex"></div>
-    <h3>Classes</h3>
+    <h4>Classes</h4>
     <div id="pClass"></div>
-    <h3>Survived</h3>
+    <h4>Survived</h4>
     <div id="survived"></div>
 
     <script>
@@ -37,8 +70,8 @@
           const el1 = document.createElement('div')
           // attach the element to the dom
           pClass.appendChild(el1)
-          el1.style.width = '10px'
-          el1.style.height = '10px'
+          el1.style.width = '5px'
+          el1.style.height = '5px'
           el1.style.margin = '1px'
 
           if(passenger.pclass === 1) {
@@ -58,9 +91,10 @@
           const el2 = document.createElement('div')
           // attach the element to the dom
           sex.appendChild(el2)
-          el2.style.width = '10px'
-          el2.style.height = '10px'
+          el2.style.width = '5px'
+          el2.style.height = '5px'
           el2.style.margin = '1px'
+          el2.style.transform = 'rotate(45deg)'
 
           el2.style.backgroundColor = passenger.sex === 'male' ? 'blue' : 'pink'
         })
@@ -71,10 +105,11 @@
           const el3 = document.createElement('div')
           // attach the element to the dom
           survived.appendChild(el3)
-          el3.style.width = '10px'
-          el3.style.height = '10px'
+          el3.style.width = '5px'
+          el3.style.height = '5px'
           el3.style.margin = '1px'
           el3.style.borderRadius = '50%'
+          el3.style.boxShadow = '5px 10px #888888;'
 
           el3.style.backgroundColor = passenger.survived === 'Yes' ? 'red' : 'black'
         })
