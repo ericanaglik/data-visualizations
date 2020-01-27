@@ -2,9 +2,6 @@
   <head>
     <title>Getting Started Data Viz</title>
     <style>
-      body {
-        /* margin: 80px; */
-      }
       p {
         font-size: 10px;
         margin-top: 5px;
@@ -16,8 +13,8 @@
 
       .gender-male {
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         background-color: blue;
         transform: rotate(45deg);
 
@@ -25,22 +22,60 @@
 
       .gender-female {
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         background-color: pink;
         transform: rotate(45deg);
-
       }
+
+      .class-1 {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: purple;
+      }
+
+      .class-2 {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: silver;
+      }
+
+      .class-3 {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: darkgoldenrod;
+      }
+
+      .survived-yes {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: red;
+        border-radius: 50%;
+      }
+
+      .survived-no {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: black;
+        border-radius: 50%;
+      }
+
     </style>
   </head>
   <body>
     <h4>Sex</h4>
-    <p>Legend: <br> Male - <span class="gender-male"></span> <br> Female - <span class="gender-female"></span></p>
-
+    <p>Male - <span class="gender-male"></span> <br> Female - <span class="gender-female"></span></p>
     <div id="sex"></div>
-    <h4>Classes</h4>
+    <h4>Sex</h4>
+    <p>Class 1 - <span class="class-1"></span> <br> Class 2 - <span class="class-2"></span> <br> Class 3 - <span class="class-3"></span></p>
     <div id="pClass"></div>
     <h4>Survived</h4>
+    <p> Yes - <span class="survived-yes"></span> <br> No - <span class="survived-no"></span></p>
     <div id="survived"></div>
 
     <script>
