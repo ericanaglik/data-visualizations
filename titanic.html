@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script>
+    fetch('titanic-passengers.json', { mode: 'no-cors' })
+		.then(res => res.json())
+		.then(json => handleData(json))
+		.catch(err => console.log(err.message))
+	
+	function handleData(data) {
+		
+		const betterData = data.map(({fields}) => {
+			const el = document.createElement('div')
+			fields.el = el
+			fields.showFare = () => {
+				el.style.height = fields.fare * 100
+			}
+			
+			fields.showAge = () => {
+				el.style.height = fields.age * 100
+			}
+			return fields
+		})
+    firstPassenger(betterData)
+    totalPassengers(betterData)
+    numSurvived(betterData)
+    numDied(betterData)
+  }
+    
+  function firstPassenger(betterData) {
+    console.log(betterData[0])
+  }
+
+  function totalPassengers(betterData) {
+    console.log(betterData.length)
+  }
+
+  function numSurvived(betterData) {
+    count = 0
+    for(i = 0; i < betterData.length; i++) {
+      if(betterData[i].survived == 'Yes') {
+        count += 1
+      }
+    }
+    console.log(count)
+  }
+
+  function numDied(betterData) {
+    count = 0
+    for(i = 0; i < betterData.length; i++) {
+      if(betterData[i].survived == 'No') {
+        count += 1
+      }
+    }
+    console.log(count)
+  }
+  </script>
+  </body>
+</html>
