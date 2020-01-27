@@ -7,6 +7,8 @@
     <div id="sex"></div>
     <h3>Classes</h3>
     <div id="pClass"></div>
+    <h3>Survived</h3>
+    <div id="survived"></div>
 
     <script>
 
@@ -15,6 +17,7 @@
     // const content = document.getElementById('content')
     const pClass = document.getElementById('pClass')
     const sex = document.getElementById('sex')
+    const survived = document.getElementById('survived')
 
     fetch('titanic-passengers.json')
         .then(res => res.json())
@@ -43,13 +46,13 @@
           } else if (passenger.pclass === 2) {
             el1.style.backgroundColor = 'silver'
           } else if (passenger.pclass === 3) {
-            el1.style.backgroundColor = 'teal'
+            el1.style.backgroundColor = 'DARKGOLDENROD'
           } else {
             el1.style.backgroundColor = 'white'
           }
         })
 
-        // CLASS
+        // SEX
         fields.forEach(passenger => {
           // make an element
           const el2 = document.createElement('div')
@@ -62,6 +65,20 @@
           el2.style.backgroundColor = passenger.sex === 'male' ? 'blue' : 'pink'
         })
 
+        // SURVIVED
+        fields.forEach(passenger => {
+          // make an element
+          const el3 = document.createElement('div')
+          // attach the element to the dom
+          survived.appendChild(el3)
+          el3.style.width = '10px'
+          el3.style.height = '10px'
+          el3.style.margin = '1px'
+          el3.style.borderRadius = '50%'
+
+          el3.style.backgroundColor = passenger.survived === 'Yes' ? 'red' : 'black'
+        })
+
         // Style content
         // content.style.display = 'flex'
         // content.style.flexWrap = 'wrap'
@@ -69,6 +86,8 @@
         pClass.style.flexWrap = 'wrap'
         sex.style.display = 'flex'
         sex.style.flexWrap = 'wrap'
+        survived.style.display = 'flex'
+        survived.style.flexWrap = 'wrap'
     }
 
     </script>
