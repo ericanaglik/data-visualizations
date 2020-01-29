@@ -150,12 +150,29 @@
           const el3 = document.createElement('div')
           // attach the element to the dom
           survived.appendChild(el3)
+          
           el3.style.width = '5px'
           el3.style.height = '5px'
           el3.style.margin = '1px'
           el3.style.borderRadius = '50%'
+          el3.style.borderStyle = 'solid'
+          el3.style.borderWidth = '2px'
 
           el3.style.backgroundColor = passenger.survived === 'Yes' ? 'red' : 'black'
+          el3.style.borderColor = passenger.sex === 'male' ? 'dodgerblue' : 'hotpink'
+          // if(passenger.survived === 'Yes' && passenger.sex === 'male') {
+          //   el3.style.borderColor = 'dodgerblue'
+          //   el3.style.backgroundColor = 'red'
+          // } else if (passenger.survived === 'No' && passenger.sex === 'male') {
+          //   el3.style.borderColor = 'dodgerblue'
+          //   el3.style.backgroundColor = 'black'
+          // } else if (passenger.survived === 'Yes' && passenger.sex === 'female') {
+          //   el3.style.borderColor = 'hotpink'
+          //   el3.style.backgroundColor = 'red'
+          // } else if (passenger.survived === 'No' && passenger.sex === 'female') {
+          //   el3.style.borderColor = 'hotpink'
+          //   el3.style.backgroundColor = 'black'
+          // }
         })
 
         // Style content
