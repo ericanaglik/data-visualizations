@@ -121,6 +121,9 @@
         })
 
         // SEX
+        fields.sort((a, b) => {
+          return a.sex === 'male' ? -1 : 1
+        })
         fields.forEach(passenger => {
           // make an element
           const el2 = document.createElement('div')
@@ -135,6 +138,9 @@
         })
 
         // SURVIVED
+        fields.sort((a, b) => {
+          return a.survived === 'Yes' ? -1 : 1
+        })
         fields.forEach(passenger => {
           // make an element
           const el3 = document.createElement('div')
