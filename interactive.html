@@ -1,0 +1,155 @@
+<html>
+  <head>
+    <title> Viz 3 | Interactive </title>
+    <link rel="stylesheet" href="titanic2.css">
+    <style> 
+      .button-selected {
+        background-color: black;
+        color: white;
+        font-size: 16px;
+      }
+    
+    </style>
+  </head>
+  <body>
+    <h1> Viz 3 </h1>
+
+    <h3> Embarked, Gender, Survivors</h3>
+    <button id="btnGender"> Gender </button>
+    <button id="btnSurvivors"> Survivors </button>
+    <button id="btnEmbarked"> Embarked </button>
+    <h6> Sorting the Stuff </h6>
+    <button type="radio" name="sorted" value="gender"> Gender </button>
+    <!-- <input type="radio" name="sorted" value="Class"> Class
+    <input type="radio" name="sorted" value="Gender"> Gender 
+    <input type="radio" name="sorted" value="Embarked"> Embarked
+    <input type="radio" name="sorted" value="Survived"> Survived -->
+    <button type="radio" name="sorted" value="class" id="sortedClass"> Class </button>
+    <div id="main"></div>
+    <script>
+
+    fetch('passengers.json')
+    .then(res => res.json())
+    .then(json => {
+      handleData(json)
+    })
+
+    const main = document.getElementById('main')
+    const elements = []
+    const passengerData = []
+
+    let showGender = false
+    let showEmbarked = false
+    let showSurvivors = false
+    let sortClass = false
+
+    function handleData(data) {
+      const fields = data.map(({ fields }) => fields)
+
+      fields.forEach((passenger, i) => {
+        const el = document.createElement('div')
+        main.appendChild(el)
+        //styling element 
+        el.style.width = '20px'
+        el.style.height = '20px'
+        el.style.margin = '2px'
+        el.style.backgroundColor = 'black'
+        el.style.transition = '3s'
+        elements.push(el)             // store the element
+        passengerData.push(passenger) // Store the passenger
+      });
+
+      btnGender.addEventListener('click', (e) => {
+        showGender = !showGender
+        selectButton(e.target, showGender)
+        if (showGender) {
+          // true
+          passengerData.forEach((passenger, i) => {
+            elements[i].style.backgroundColor = passenger.sex === 'male' ? '#000080' : 'pink'
+          })
+        } else {
+          // false
+          passengerData.forEach((passenger, i) => {
+            elements[i].style.backgroundColor = 'black'
+          })
+        }
+      })
+
+      btnSurvivors.addEventListener('click', (e) => {
+        showSurvivors = !showSurvivors
+        selectButton(e.target, showSurvivors)
+        if (showSurvivors) {
+          passengerData.forEach((passenger, i) => {
+            elements[i].style.margin = '0.5px'
+            elements[i].style.border = passenger.survived === 'No' ? ' 0.5px solid #B22222' : '0.5px dashed #000080'
+          })
+        } else {
+          passengerData.forEach((passenger, i) => {
+            elements[i].style.transition = '4s'
+            elements[i].style.border = '0px solid black'
+            elements[i].style.margin = '2px'
+          })
+        }
+      })
+
+      btnEmbarked.addEventListener('click', (e) => {
+        showEmbarked = !showEmbarked
+        selectButton(e.target, showEmbarked)
+        if (showEmbarked) {
+          passengerData.forEach((passenger, i) => {
+            if (passenger.embarked === 'S') {
+              elements[i].style.backgroundColor = '#B22222'
+            } else if (passenger.embarked === 'Q') {
+              elements[i].style.backgroundColor = '#000080'
+            } else if (passenger.embarked === 'C') {
+              elements[i].style.backgroundColor = 'silver'
+            } else {
+              elements[i].style.backgroundColor = 'black'
+            }
+          })
+        } else {
+          passengerData.forEach((passenger, i) => {
+            elements[i].style.backgroundColor = 'black'
+          })
+        }
+      })
+
+      sortedClass.addEventListener('click', (e) => {
+        sortClass = !sortClass 
+        selectButton(e.target, sortClass)
+        if (sortClass) {
+          
+        }
+      })
+
+      // Array.from('sorted').forEach(function(element) {
+      //   element.addEventListener('click', (e) => {
+      //     console.log(e)
+      //   });
+      // });
+
+      
+
+
+      // let thingy = document.querySelector('input[name="sorted"]:checked').value;
+
+      // console.log(thingy)
+
+      // sortData.addEventListener('click', (e, value) => {
+      //   val = document.getElementById('')
+
+      // })
+
+      function selectButton(el, state) {
+        if (state === true) {
+          el.classList.add('button-selected')
+        } else {
+          el.classList.remove('button-selected')
+        }
+      }
+
+
+    }
+    </script>
+  </body>
+</html>

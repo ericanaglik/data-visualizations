@@ -1,218 +1,233 @@
 <html>
-  <head>
-    <title>Getting Started Data Viz</title>
-    <style>
-      p {
-        font-size: 10px;
-        margin-top: 5px;
-      }
 
-      h4 {
-        margin-bottom: 5px;
-      }
-
-      .gender-male {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: dodgerblue;
-        transform: rotate(45deg);
-
-      }
-
-      .gender-female {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: hotpink;
-        transform: rotate(45deg);
-      }
-
-      .class-1 {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-color: purple;
-        border-style: solid;
-      }
-
-      .class-2 {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-color: silver;
-        border-style: solid;
-      }
-
-      .class-3 {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-color: darkgoldenrod;
-        border-style: solid;
-      }
-
-      .survived-yes-f {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: white;
-        border-color: hotpink;
-        border-style: solid;
-        border-radius: 50%;
-      }
-
-      .survived-yes-m {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: white;
-        border-color: dodgerblue;
-        border-style: solid;
-        border-radius: 50%;
-      }
-
-      .survived-no-f {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: black;
-        border-color: hotpink;
-        border-style: solid;
-        border-radius: 50%;
-      }
-
-      .survived-no-m {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: black;
-        border-color: dodgerblue;
-        border-style: solid;
-        border-radius: 50%;
-      }
-
-    </style>
-  </head>
-  <body>
-    <h4>Sex</h4>
-    <p>Male - <span class="gender-male"></span> <br> Female - <span class="gender-female"></span></p>
-    <div id="sex"></div>
-    <h4>Class</h4>
-    <p>Class 1 - <span class="class-1"></span> <br> Class 2 - <span class="class-2"></span> <br> Class 3 - <span class="class-3"></span></p>
-    <div id="pClass"></div>
-    <h4>Survived</h4>
-    <p> Yes (Female) - <span class="survived-yes-f"></span> <br> Yes (Male) - <span class="survived-yes-m"></span> <br> <span> No (Female) - <span class="survived-no-f"> <p><span> No (Male) - <span class="survived-no-m"></span></p> </span>
-    <div id="survived"></div>
-
-    <script>
-
-    // Get a reference to div#content
-    // This is where we will add dynamic elements
-    // const content = document.getElementById('content')
-    const pClass = document.getElementById('pClass')
-    const sex = document.getElementById('sex')
-    const survived = document.getElementById('survived')
-
-    fetch('titanic-passengers.json')
-        .then(res => res.json())
-        .then(json => handleData(json))
-        .catch(err => console.log(err.message))
-    
-    
-    function handleData(data) {
-        // Get an array of relevant objects from the data
-        const fields = data.map(({ fields }) => fields)
-
-        // console.log(data)
-
-        // CLASS
-        fields.forEach(passenger => {
-          // make an element
-          const el1 = document.createElement('div')
-          // attach the element to the dom
-          pClass.appendChild(el1)
-          el1.style.width = '5px'
-          el1.style.height = '5px'
-          el1.style.margin = '1px'
-          el1.style.borderStyle = 'solid'
-
-          if(passenger.pclass === 1) {
-            el1.style.borderColor = 'purple'
-          } else if (passenger.pclass === 2) {
-            el1.style.borderColor = 'silver'
-          } else if (passenger.pclass === 3) {
-            el1.style.borderColor = 'DARKGOLDENROD'
-          } else {
-            el1.style.borderColor = 'white'
-          }
-        })
-
-        // SEX
-        fields.sort((a, b) => {
-          return a.sex === 'male' ? -1 : 1
-        })
-        fields.forEach(passenger => {
-          // make an element
-          const el2 = document.createElement('div')
-          // attach the element to the dom
-          sex.appendChild(el2)
-          el2.style.width = '5px'
-          el2.style.height = '5px'
-          el2.style.margin = '1px'
-          el2.style.transform = 'rotate(45deg)'
-
-          el2.style.backgroundColor = passenger.sex === 'male' ? 'DODGERBLUE' : 'hotpink'
-        })
-
-        // SURVIVED
-        fields.sort((a, b) => {
-          return a.survived === 'Yes' ? -1 : 1
-        })
-        fields.sort((a, b) => {
-          return a.sex === 'female' ? -1 : 1
-        })
-        fields.forEach(passenger => {
-          // make an element
-          const el3 = document.createElement('div')
-          // attach the element to the dom
-          survived.appendChild(el3)
-          
-          el3.style.width = '5px'
-          el3.style.height = '5px'
-          el3.style.margin = '1px'
-          el3.style.borderRadius = '50%'
-          el3.style.borderStyle = 'solid'
-          el3.style.borderWidth = '2px'
-
-          el3.style.backgroundColor = passenger.survived === 'Yes' ? 'white' : 'black'
-          el3.style.borderColor = passenger.sex === 'male' ? 'dodgerblue' : 'hotpink'
-          // if(passenger.survived === 'Yes' && passenger.sex === 'male') {
-          //   el3.style.borderColor = 'dodgerblue'
-          //   el3.style.backgroundColor = 'red'
-          // } else if (passenger.survived === 'No' && passenger.sex === 'male') {
-          //   el3.style.borderColor = 'dodgerblue'
-          //   el3.style.backgroundColor = 'black'
-          // } else if (passenger.survived === 'Yes' && passenger.sex === 'female') {
-          //   el3.style.borderColor = 'hotpink'
-          //   el3.style.backgroundColor = 'red'
-          // } else if (passenger.survived === 'No' && passenger.sex === 'female') {
-          //   el3.style.borderColor = 'hotpink'
-          //   el3.style.backgroundColor = 'black'
-          // }
-        })
-
-        // Style content
-        // content.style.display = 'flex'
-        // content.style.flexWrap = 'wrap'
-        pClass.style.display = 'flex'
-        pClass.style.flexWrap = 'wrap'
-        sex.style.display = 'flex'
-        sex.style.flexWrap = 'wrap'
-        survived.style.display = 'flex'
-        survived.style.flexWrap = 'wrap'
+<head>
+  <title>Getting Started Data Viz</title>
+  <style>
+    p {
+      font-size: 10px;
+      margin-top: 5px;
     }
 
-    </script>
-  </body>
+    h4 {
+      margin-bottom: 5px;
+    }
+
+    .gender-male {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: dodgerblue;
+      transform: rotate(45deg);
+
+    }
+
+    .gender-female {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: hotpink;
+      transform: rotate(45deg);
+    }
+
+    .class-1 {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-color: purple;
+      border-style: solid;
+    }
+
+    .class-2 {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-color: silver;
+      border-style: solid;
+    }
+
+    .class-3 {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-color: darkgoldenrod;
+      border-style: solid;
+    }
+
+    .survived-yes-f {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-color: hotpink;
+      border-style: solid;
+      border-radius: 50%;
+    }
+
+    .survived-yes-m {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-color: dodgerblue;
+      border-style: solid;
+      border-radius: 50%;
+    }
+
+    .survived-no-f {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: black;
+      border-color: hotpink;
+      border-style: solid;
+      border-radius: 50%;
+    }
+
+    .survived-no-m {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: black;
+      border-color: dodgerblue;
+      border-style: solid;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <h4>Sex</h4>
+  <p>Male - <span class="gender-male"></span> <br> Female - <span class="gender-female"></span></p>
+  <div id="sex"></div>
+  <h4>Class</h4>
+  <p>Class 1 - <span class="class-1"></span> <br> Class 2 - <span class="class-2"></span> <br> Class 3 - <span
+      class="class-3"></span></p>
+  <div id="pClass"></div>
+  <h4>Survived</h4>
+  <button id="buttonGender">Gender</button>
+  <button id="buttonSurvived">Survived</button>
+  <p> Yes (Female) - <span class="survived-yes-f"></span> <br> Yes (Male) - <span class="survived-yes-m"></span> <br>
+    <span> No (Female) - <span class="survived-no-f">
+        <p><span> No (Male) - <span class="survived-no-m"></span></p>
+      </span>
+      <div id="survived"></div>
+
+      <script>
+        // Get a reference to div#content
+        // This is where we will add dynamic elements
+        // const content = document.getElementById('content')
+        const pClass = document.getElementById('pClass')
+        const sex = document.getElementById('sex')
+        const survived = document.getElementById('survived')
+
+        fetch('titanic-passengers.json')
+          .then(res => res.json())
+          .then(json => handleData(json))
+          .catch(err => console.log(err.message))
+
+
+        function handleData(data) {
+          // Get an array of relevant objects from the data
+          const fields = data.map(({
+            fields
+          }) => fields)
+
+          // console.log(data)
+
+          
+
+          // CLASS
+          fields.forEach(passenger => {
+            // make an element
+            const el1 = document.createElement('div')
+            // attach the element to the dom
+            pClass.appendChild(el1)
+            el1.style.width = '5px'
+            el1.style.height = '5px'
+            el1.style.margin = '1px'
+            el1.style.borderStyle = 'solid'
+
+            if (passenger.pclass === 1) {
+              el1.style.borderColor = 'purple'
+            } else if (passenger.pclass === 2) {
+              el1.style.borderColor = 'silver'
+            } else if (passenger.pclass === 3) {
+              el1.style.borderColor = 'DARKGOLDENROD'
+            } else {
+              el1.style.borderColor = 'white'
+            }
+          })
+
+          // SEX
+          fields.sort((a, b) => {
+            return a.sex === 'male' ? -1 : 1
+          })
+          fields.forEach(passenger => {
+            // make an element
+            const el2 = document.createElement('div')
+            // attach the element to the dom
+            sex.appendChild(el2)
+            el2.style.width = '5px'
+            el2.style.height = '5px'
+            el2.style.margin = '1px'
+            el2.style.transform = 'rotate(45deg)'
+
+            el2.style.backgroundColor = passenger.sex === 'male' ? 'DODGERBLUE' : 'hotpink'
+          })
+
+          // SURVIVED
+          fields.sort((a, b) => {
+            return a.survived === 'Yes' ? -1 : 1
+          })
+          fields.sort((a, b) => {
+            return a.sex === 'female' ? -1 : 1
+          })
+          fields.forEach(passenger => {
+            // make an element
+            const el3 = document.createElement('div')
+            // attach the element to the dom
+            survived.appendChild(el3)
+
+          let showGender = false
+          let showSurvived = false
+
+            el3.style.width = '5px'
+            el3.style.height = '5px'
+            el3.style.margin = '1px'
+            el3.style.borderRadius = '50%'
+            el3.style.borderStyle = 'solid'
+            el3.style.borderWidth = '2px'
+
+            buttonGender.addEventListener('click', (e) => {
+              showGender = !showGender
+              if (showGender) {
+                el3.style.borderColor = passenger.sex === 'male' ? 'dodgerblue' : 'hotpink'
+                
+              }
+            })
+
+            buttonSurvived.addEventListener('click', (e) => {
+              showSurvived = !showSurvived
+              if (showSurvived) {
+                el3.style.backgroundColor = passenger.survived === 'Yes' ? 'white' : 'black'
+              }
+            })
+            
+            
+
+          })
+
+          // Style content
+          // content.style.display = 'flex'
+          // content.style.flexWrap = 'wrap'
+          pClass.style.display = 'flex'
+          pClass.style.flexWrap = 'wrap'
+          sex.style.display = 'flex'
+          sex.style.flexWrap = 'wrap'
+          survived.style.display = 'flex'
+          survived.style.flexWrap = 'wrap'
+        }
+      </script>
+</body>
+
 </html>
