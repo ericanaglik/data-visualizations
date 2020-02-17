@@ -11,29 +11,65 @@
 
 <body>
 
-
+    <svg id="svg" width="500" height="500">
+        <!-- <circle cx="250" cy="250" r="123" fill="#0ff"/> -->
+      </svg>
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <script>
-    d3.json('titanic-passengers.json')
-		.then(json => console.log(json))
+    // d3.json('titanic-passengers.json')
+		// .then((data)=> {
+    //   const fields = data.map((obj) => obj.fields)
+    //   console.log(fields)
+    //   handleData(fields)
+    // })
 
-    d3.select('body')
-      .selectAll('div')
-      .data([5, 6, 2, 8, 4, 9, 1])
-      .enter()
-      .append('div')
-      .text((d) => d)
-      // When the second parameter is a primitive value, the value is returned.
-      // Look at: padding, background-color, and margin.
-      .style('padding', '1em')
-      .style('background-color', 'red')
-      .style('margin', '1px')
-      // When the second parameter is a function, the function receives
-      // a data value and returns a value.
-      // See the width. Here the value is normalized and returned as a %.
-      .style('width', (d) => `${d / 10 * 100}%`)
+    // function handleData(data) {
+
+    //   d3.select('body')
+    //     .selectAll('div')
+    //     .data([5, 6, 2, 8, 4, 9, 1])
+    //     .enter()
+    //     .append('div')
+    //     .text((d) => d)
+    //     // When the second parameter is a primitive value, the value is returned.
+    //     // Look at: padding, background-color, and margin.
+    //     .style('padding', '1em')
+    //     .style('background-color', 'red')
+    //     .style('margin', '1px')
+    //     // When the second parameter is a function, the function receives
+    //     // a data value and returns a value.
+    //     // See the width. Here the value is normalized and returned as a %.
+    //     .style('width', (d) => `${d / 10 * 100}%`)
+    // }
+
+    
+
+    function makeRandomData(n) {
+        const arr = []
+        for(let i = 0; i < n; i++) {
+          arr.push({
+            a: Math.random(),
+            b: Math.random(),
+            c: Math.random()
+          })
+        }
+        return arr
+      }
+      const dateAh = makeRandomData(10)
+      d3.select('#svg')
+        .style('border', '2px solid black')
+        .selectAll('circle')
+        .data(dateAh)
+        .enter()
+        .append('circle')
+        .attr('cx', (d, i) => i * 500 / dateAh.length)
+        .attr('cy', (d) => d.a * 500)
+        .attr('r', (d) => d.c * 100)
+        .attr('fill', (d) => 'pink')
+        .attr('opacity', () => 0.5 )
+
   </script>
 
 </body>
